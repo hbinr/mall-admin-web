@@ -6,3 +6,26 @@ body,
   padding: 0;
   margin: 0;
 }
+
+/* 面包屑样式 */
+.el-breadcrumb {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+/* 卡片样式，阴影变范围变小*/
+.el-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 表格样式 */
+.el-table {
+  margin-top: 15px;
+}
+
+/* dialog框 底部按钮居中 */
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

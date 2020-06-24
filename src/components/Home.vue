@@ -20,7 +20,7 @@
         <div class="toggle-button"
              @click="toggleCollapse"> | | |</div>
         <!-- 侧边栏菜单 -->
-        <el-menu default-active="2"
+        <el-menu :default-active="activePath"
                  class="el-menu-vertical-demo"
                  background-color="#333744"
                  text-color="#fff"
@@ -40,7 +40,8 @@
             <!-- 二级菜单模板 -->
             <el-menu-item :index="'/'+ subItem.path"
                           v-for="subItem in item.children"
-                          :key="subItem.id">
+                          :key="subItem.id"
+                          @click="saveNavState('/'+ subItem.path)">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{subItem.authName}}</span>
@@ -72,12 +73,15 @@ export default {
         102: 'iconfont icon-danju',
         145: 'iconfont icon-baobiao'
       },
-      isCollapse: false
+      isCollapse: false,
+      activePath: ''
     }
   },
   created () {
     // 在created 生命周期时，获取数据
     this.getMenuList()
+    // 从sessionStorge中取出二级菜单状态值，刷新页面时能默认支持菜单打开
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     // 登出
@@ -90,7 +94,6 @@ export default {
       const { data: res, status } = await this.$http.get('menus')
       if (status === 200) {
         this.menuList = res.data
-        console.log(this.menuList)
       } else if (status >= 250) {
         this.$messagee.error(res.meta.msg)
         this.$router.push('/login')
@@ -99,6 +102,11 @@ export default {
     // 菜单折叠及展开
     toggleCollapse () {
       this.isCollapse = !this.isCollapse
+    },
+    // 保存二级菜单激活状态值，值为其url
+    saveNavState (activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }
