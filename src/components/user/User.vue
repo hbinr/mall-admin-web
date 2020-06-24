@@ -222,23 +222,6 @@ export default {
         mobile: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }]
-      },
-      // 删除用户
-      deleteUser (ID) {
-        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          const { data: res } = await this.$http.delete('users/' + ID)
-          if (res.meta.status !== 200) {
-            return this.$message.error('删除用户失败')
-          }
-          this.$message.success('删除用户成功')
-          this.getUserList()
-        }).catch(() => {
-          this.$message.info('已取消删除')
-        })
       }
 
     }
@@ -332,6 +315,23 @@ export default {
         // 刷新数据列表
         this.getUserList()
         this.$message.success('修改用户信息成功')
+      })
+    },
+    // 删除用户
+    deleteUser (ID) {
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const { data: res } = await this.$http.delete('users/' + ID)
+        if (res.meta.status !== 200) {
+          return this.$message.error('删除用户失败')
+        }
+        this.$message.success('删除用户成功')
+        this.getUserList()
+      }).catch(() => {
+        this.$message.info('已取消删除')
       })
     }
 
