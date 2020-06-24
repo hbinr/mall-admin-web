@@ -56,7 +56,8 @@
             <el-button type="danger"
                        size="mini"
                        icon="el-icon-delete"
-                       v-model="scope.row.id"></el-button>
+                       v-model="scope.row.id"
+                       @click="deleteUser(scope.row.id)"></el-button>
             <!-- 设置按钮,增加文字提示,鼠标离开自动隐藏(enterable)-->
             <el-tooltip content="分配角色"
                         placement="top"
@@ -102,7 +103,7 @@
         <el-form-item label="邮箱"
                       prop="email">
           <el-input v-model="addForm.email"></el-input>
-        </el-form-item>
+        </el-form-item>``
         <el-form-item label="手机"
                       prop="mobile">
           <el-input v-model="addForm.mobile"></el-input>
@@ -221,6 +222,23 @@ export default {
         mobile: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }]
+      },
+      // 删除用户
+      deleteUser (ID) {
+        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          const { data: res } = await this.$http.delete('users/' + ID)
+          if (res.meta.status !== 200) {
+            return this.$message.error('删除用户失败')
+          }
+          this.$message.success('删除用户成功')
+          this.getUserList()
+        }).catch(() => {
+          this.$message.info('已取消删除')
+        })
       }
 
     }
@@ -270,9 +288,14 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('users', this.addForm)
+        if (res.meta.status === 400) {
+          return this.$message.warning('用户名已存在')
+        }
+
         if (res.meta.status !== 201) {
           return this.$message.error('添加用户失败')
         }
+
         // 隐藏 dialog 框
         this.addDialogVisible = false
         this.$message.success('添加用户成功')
