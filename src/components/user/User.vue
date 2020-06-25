@@ -30,23 +30,31 @@
                 border
                 stripe>
         <el-table-column type="index"
-                         label="#"></el-table-column>
+                         label="#"
+                         align="center"></el-table-column>
         <el-table-column label="姓名"
-                         prop="username"></el-table-column>
+                         prop="username"
+                         align="center"></el-table-column>
         <el-table-column label="邮箱"
-                         prop="username"></el-table-column>
+                         prop="username"
+                         align="center"></el-table-column>
         <el-table-column label="电话"
-                         prop="email"></el-table-column>
+                         prop="email"
+                         align="center"></el-table-column>
         <el-table-column label="角色"
-                         prop="role_name"></el-table-column>
-        <el-table-column label="状态">
+                         prop="role_name"
+                         align="center"></el-table-column>
+        <el-table-column label="状态"
+                         align="center">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.mg_state"
                        @change="userStateChanged(scope.row)">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作"
+                         width="200px"
+                         align="center">
           <template slot-scope="scope">
             <el-button type="primary"
                        size="mini"
@@ -103,7 +111,7 @@
         <el-form-item label="邮箱"
                       prop="email">
           <el-input v-model="addForm.email"></el-input>
-        </el-form-item>``
+        </el-form-item>
         <el-form-item label="手机"
                       prop="mobile">
           <el-input v-model="addForm.mobile"></el-input>
@@ -117,8 +125,8 @@
         <el-button @click="addDialogVisible = false">取 消</el-button>
       </span>
     </el-dialog>
-    <!-- 修改用户的对话框 -->
-    <el-dialog title="修改用户"
+    <!-- 编辑用户的对话框 -->
+    <el-dialog title="编辑用户"
                :visible.sync="editDialogVisible"
                width="40%"
                @close="editDialogClosed">
@@ -210,11 +218,11 @@ export default {
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }]
       },
-      // 修改用户表单对象
+      // 编辑用户表单对象
       editForm: {},
-      // 控制修改用户对话框的显示和隐藏
+      // 控制编辑用户对话框的显示和隐藏
       editDialogVisible: false,
-      // 修改表单验证规则
+      // 编辑表单验证规则
       editFormRules: {
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
@@ -251,7 +259,7 @@ export default {
       }
       this.$message.success('更新用户状态成功')
     },
-    // 监听修改用户对话框的关闭事件
+    // 监听添加用户对话框的关闭事件
     addDialogClosed () {
       this.$refs.addFormRef.resetFields()
     },
@@ -285,7 +293,7 @@ export default {
         this.getUserList()
       })
     },
-    // 展示修改用户对话框
+    // 展示编辑用户对话框
     async showEditDialog (id) {
       const { data: res } = await this.$http.get('users/' + id)
       if (res.meta.status !== 200) {
@@ -294,11 +302,11 @@ export default {
       this.editForm = res.data
       this.editDialogVisible = true
     },
-    // 监听修改用户对话框的关闭事件
+    // 监听编辑用户对话框的关闭事件
     editDialogClosed () {
       this.$refs.editFormRef.resetFields()
     },
-    // 修改用户信息并提交
+    // 编辑用户信息并提交
     async editUser () {
       // 提交表单前先验证
       this.$refs.editFormRef.validate(async valid => {
@@ -308,13 +316,13 @@ export default {
           mobile: this.editForm.mobile
         })
         if (res.meta.status !== 200) {
-          return this.$message.error('修改用户信息失败')
+          return this.$message.error('编辑用户信息失败')
         }
         // 关闭对话框
         this.editDialogVisible = false
+        this.$message.success('编辑用户信息成功')
         // 刷新数据列表
         this.getUserList()
-        this.$message.success('修改用户信息成功')
       })
     },
     // 删除用户

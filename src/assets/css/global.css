@@ -5,6 +5,7 @@ body,
   height: 100%;
   padding: 0;
   margin: 0;
+  min-width: 1280px;
 }
 
 /* 面包屑样式 */
