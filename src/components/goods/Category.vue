@@ -264,11 +264,9 @@ export default {
         return this.$message.error('获取父级分类失败！')
       }
       this.parentCateList = res.data
-      console.log('res.data: ', res.data)
     },
     // 添加分类 选择项发生变化触发
     parentCateChanged () {
-      console.log('this.selectedKeys: ', this.selectedKeys)
       var selectedKeysTmp = this.selectedKeys
       var addCateFormTmp = this.addCateForm
       // 如果selectedKeys大于0,证明选中了父级分类
@@ -305,7 +303,7 @@ export default {
     // 展示修改分类对话框
     async showEditDialog (ID) {
       const { data: res } = await this.$http.get(`categories/${ID}`)
-      console.log('showEditDialog res: ', res)
+
       if (res.meta.status !== 200) {
         return this.$message.error('获取父级分类失败')
       }
@@ -354,7 +352,6 @@ export default {
 
 <style lang="less" scoped>
 .tree-table {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 </style>
