@@ -11,7 +11,8 @@
       <!-- 警示内容 -->
       <el-alert title="注意：只允许为第三级分类设置相关参数！"
                 type="warning"
-                show-icon>
+                show-icon
+                :closable="false">
       </el-alert>
       <!-- 级联选择器 -->
       <el-row class="cate-opt">
@@ -215,9 +216,9 @@ export default {
         // 选中后所显示的内容
         label: 'cat_name',
         // 父子嵌套的属性
-        children: 'children',
-        // 支持选择任意一级选项
-        checkStrictly: true
+        children: 'children'
+        // 支持选择任意一级选项，去掉后就只能选择最后一级选项
+        // checkStrictly: true
       },
       // 当前tabs页激活name值，默认激活第一个
       activeName: 'many',
@@ -240,7 +241,6 @@ export default {
       editDialogVisible: false,
       // 修改参数对象
       editForm: {}
-
     }
   },
   created () {

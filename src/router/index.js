@@ -9,6 +9,9 @@ const Right = () => import('../components/power/Right.vue')
 const Role = () => import('../components/power/Role.vue')
 const Category = () => import('../components/goods/Category.vue')
 const Params = () => import('../components/goods/Params.vue')
+const GoodsList = () => import('../components/goods/list/Index.vue')
+const AddGgoods = () => import('../components/goods/list/Add.vue')
+const UpdateGgoods = () => import('../components/goods/list/Update.vue')
 
 Vue.use(VueRouter)
 
@@ -29,7 +32,12 @@ const routes = [
       { path: '/rights', component: Right },
       { path: '/roles', component: Role },
       { path: '/categories', component: Category },
-      { path: '/params', component: Params }
+      { path: '/params', component: Params },
+      { path: '/goods', component: GoodsList },
+      // 从商品列表页面开始，所有开发采用更高级的模式，封装好模块，组件，请求api
+      // 之前的代码需要重构，待项目开发完，功能都能正常使用后再重构项目
+      { path: '/goods/add', name: 'addGoods', component: AddGgoods },
+      { path: '/goods/update', name: 'updateGoods', component: UpdateGgoods }
     ]
   }
 ]

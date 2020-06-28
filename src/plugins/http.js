@@ -2,8 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 
 // 封装http相关服务,方便使用 Vue.use() 注入
-const MyHttpServer = {}
-MyHttpServer.install = (Vue) => {
+const service = {}
+service.install = (Vue) => {
   // axios 请求拦截器设置，在发起请求之前，为请求头header添加token
   axios.interceptors.request.use(config => {
     config.headers.Authorization = window.sessionStorage.getItem('token')
@@ -12,7 +12,7 @@ MyHttpServer.install = (Vue) => {
     return Promise.reject(error)
   })
 
-  // 配置记住URL
+  // 配置基准URL
   axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
   Vue.prototype.$http = axios
 
@@ -20,4 +20,4 @@ MyHttpServer.install = (Vue) => {
   Vue.prototype.$qs = qs
 }
 
-export default MyHttpServer
+export default service

@@ -2,8 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// 导入富文本编辑器组件及样式
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+// 导入elementUI
 import './plugins/element.js'
-import './assets/css/global.css'
+
 // 导入字体样式
 import './assets/fonts/iconfont.css'
 
@@ -12,10 +18,13 @@ import './plugins/antDesignVue.js'
 // 导入 ant-design-vue 的table样式
 import 'ant-design-vue/lib/table/style/css'
 
-import MyHttpServer from './plugins/http.js'
+// 导入自定义的全局样式及封装好的http请求
+import './assets/css/global.css'
+import sevice from './plugins/http.js'
 
 Vue.config.productionTip = false
-Vue.use(MyHttpServer)
+Vue.use(sevice)
+Vue.use(VueQuillEditor)
 
 new Vue({
   router,

@@ -35,3 +35,18 @@ body,
 .el-cascader-panel {
   height: 200px;
 }
+
+/* 步骤条样式 */
+.el-steps {
+  margin: 15px 0;
+}
+
+/* 步骤条样式 */
+.el-step__title {
+  font-size: 15px;
+}
+
+/* 富文本编辑器样式 */
+.ql-editor {
+  min-height: 300px;
+}

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import {
   Button,
   Input,
+  InputNumber,
   Form,
   FormItem,
   Card,
@@ -33,12 +34,17 @@ import {
   Cascader,
   Alert,
   Tabs,
-  TabPane
+  TabPane,
+  Steps,
+  Step,
+  CheckboxGroup,
+  Upload
 } from 'element-ui'
 
 // 按需引入UI组件
 Vue.use(Button)
 Vue.use(Input)
+Vue.use(InputNumber)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Card)
@@ -69,5 +75,9 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(CheckboxGroup)
+Vue.use(Upload)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
