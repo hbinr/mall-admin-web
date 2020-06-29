@@ -48,7 +48,7 @@
         <el-table-column label="创建时间"
                          prop="add_time"
                          align="center"
-                         width="140">
+                         width="155">
           <template slot-scope="scope">
             {{scope.row.add_time|formatDate}}
           </template>
@@ -117,7 +117,7 @@ export default {
         return 'N/A'
       }
       const date = new Date(time)
-      return formatDate(date, 'yyyy-MM-dd hh:mm')
+      return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
     }
   },
   methods: {
