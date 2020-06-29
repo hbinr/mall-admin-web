@@ -13,6 +13,7 @@ const GoodsList = () => import('../components/goods/list/Index.vue')
 const AddGgoods = () => import('../components/goods/list/Add.vue')
 const UpdateGgoods = () => import('../components/goods/list/Update.vue')
 const Order = () => import('../components/order/Order.vue')
+const Report = () => import('../components/report/Report.vue')
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,8 @@ const routes = [
       // 之前的代码需要重构，待项目开发完，功能都能正常使用后再重构项目
       { path: '/goods/add', name: 'addGoods', component: AddGgoods },
       { path: '/goods/update', name: 'updateGoods', component: UpdateGgoods },
-      { path: '/orders', name: 'order', component: Order }
+      { path: '/orders', name: 'order', component: Order },
+      { path: '/reports', name: 'report', component: Report }
     ]
   }
 ]
