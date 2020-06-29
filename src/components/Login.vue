@@ -23,10 +23,6 @@
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item>
-          <el-checkbox class="login-checkbox"
-                       v-model="user.autoLogin"
-                       label="1">7天内自动登录</el-checkbox>
-
           <el-button class="login-btn"
                      type="success"
                      size="medium"

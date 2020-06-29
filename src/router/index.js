@@ -1,19 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const Login = () => import('../components/Login.vue')
-const Home = () => import('../components/Home.vue')
-const Welcome = () => import('../components/Welcome.vue')
-const User = () => import('../components/user/User.vue')
-const Right = () => import('../components/power/Right.vue')
-const Role = () => import('../components/power/Role.vue')
-const Category = () => import('../components/goods/Category.vue')
-const Params = () => import('../components/goods/Params.vue')
-const GoodsList = () => import('../components/goods/list/Index.vue')
-const AddGgoods = () => import('../components/goods/list/Add.vue')
-const UpdateGgoods = () => import('../components/goods/list/Update.vue')
-const Order = () => import('../components/order/Order.vue')
-const Report = () => import('../components/report/Report.vue')
+// 路由懒加载
+const Login = () => import(/* webpackChunkName: "Login_Home_Welcome" */ '../components/Login.vue')
+const Home = () => import(/* webpackChunkName: "Login_Home_Welcome" */ '../components/Home.vue')
+const Welcome = () => import(/* webpackChunkName: "Login_Home_Welcome" */ '../components/Welcome.vue')
+
+const User = () => import(/* webpackChunkName: "Users_Rights_Roles" */ '../components/user/User.vue')
+const Right = () => import(/* webpackChunkName: "Users_Rights_Roles" */ '../components/power/Right.vue')
+const Role = () => import(/* webpackChunkName: "Users_Rights_Roles" */ '../components/power/Role.vue')
+
+const Category = () => import(/* webpackChunkName: "Category_Params" */ '../components/goods/Category.vue')
+const Params = () => import(/* webpackChunkName: "Category_Params" */ '../components/goods/Params.vue')
+
+const GoodsList = () => import(/* webpackChunkName: "GoodsList_Index" */ '../components/goods/list/Index.vue')
+const AddGgoods = () => import(/* webpackChunkName: "GoodsList_Add" */ '../components/goods/list/Add.vue')
+const UpdateGgoods = () => import(/* webpackChunkName: "GoodsList_Update" */ '../components/goods/list/Update.vue')
+
+const Order = () => import(/* webpackChunkName: "Order_Report" */ '../components/order/Order.vue')
+const Report = () => import(/* webpackChunkName: "Order_Report" */ '../components/report/Report.vue')
 
 Vue.use(VueRouter)
 
@@ -54,6 +59,7 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
 }
+
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.

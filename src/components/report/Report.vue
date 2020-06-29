@@ -52,7 +52,7 @@ export default {
       var myChart = echarts.init(document.getElementById('main'))
       // 2. 指定图表的配置项和数据
       const { data: res } = await this.$http.get('/reports/type/1')
-      console.log('res: ', res)
+
       if (res.meta.status !== 200) {
         return this.$message.error('获取报表数据失败')
       }

@@ -195,7 +195,6 @@ export default {
     // 获取订单列表
     getOrderList () {
       fetchList(this.listQuery).then(res => {
-        console.log('res: ', res)
         if (res.meta.status !== 200) {
           return this.$message.error('获取订单列表失败')
         }
@@ -226,10 +225,10 @@ export default {
     showLgstProgessDialog () {
       // 获取物流信息，暂时使用固定物流单号去查询，但是后台该数据已经没有了
       // getLogisticsInfoByID('1106975712662').then(res => {
-      //   console.log('res: ', res)
+      //
       // })
       // 暂时使用固定数据
-      console.log('lgstData: ', lgstData)
+
       this.lgstProgress = lgstData.data
       this.lgstProgressDialogVisible = true
     }

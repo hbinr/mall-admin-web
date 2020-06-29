@@ -392,7 +392,7 @@ export default {
     // 分配角色
     async setRole (userInfo) {
       this.userInfo = userInfo
-      console.log('userInfo: ', userInfo)
+
       const { data: res } = await this.$http.get('roles')
       if (res.meta.status !== 200) {
         return this.$message.error('获取角色列表失败')
@@ -407,7 +407,7 @@ export default {
         return this.$message.warning('请先分配角色')
       }
       const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectedRoleID })
-      console.log('res: ', res)
+
       if (res.meta.status !== 200) {
         return this.$message.error('分配角色失败')
       }

@@ -334,14 +334,11 @@ export default {
     onSubmit (formName) {
       this.$refs[formName].validate(async valid => {
         const correctData = this.handleSubmitData()
-        console.log('correctData: ', correctData)
         // 开始提交
         if (valid) {
           if (this.isEdit) {
-            console.log('this.isEdit: ', this.isEdit)
             // 编辑商品
             updateGoods(this.$route.query.id, correctData).then(res => {
-              console.log('this.$route.query.id: ', this.$route.query.id)
               this.$refs[formName].resetFields()
               if (res.meta.status !== 200) {
                 return this.$message.error('商品修改失败')

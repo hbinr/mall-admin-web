@@ -299,10 +299,10 @@ export default {
         ...this.$refs.treeRef.getHalfCheckedKeys()
       ]
       const keysStr = keys.join(',')
-      console.log('keysStr: ', keysStr)
+
       const { data: res } = await this.$http.post(`roles/${this.roleID}/rights`,
         { rids: keysStr })
-      console.log('res: ', res)
+
       if (res.meta.status !== 200) {
         return this.$message.error('分配权限失败')
       }
