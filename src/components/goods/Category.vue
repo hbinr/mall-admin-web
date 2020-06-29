@@ -16,48 +16,55 @@
         </el-col>
       </el-row>
       <!-- 表格展示区域 -->
-      <a-table class="tree-table"
-               :columns="columns"
-               :data-source="cateList"
-               rowKey="cat_id"
-               bordered
-               :pagination="false"
-               :indentSize=30
-               size="small">
-        <!-- 是否有效列 -->
-        <span slot="isDeleted"
-              slot-scope="isDeleted">
-          <i class="el-icon-success"
-             v-if="isDeleted === false"
-             style="color:lightgreen"></i>
-          <i class="el-icon-error"
-             v-else
-             style="color:red"></i>
-        </span>
-        <!-- 排序列 -->
-        <span slot="cat_level"
-              slot-scope="cat_level">
-          <el-tag type=""
-                  v-if="cat_level === 0">一级</el-tag>
-          <el-tag type="success"
-                  v-else-if="cat_level ===1 ">二级</el-tag>
-          <el-tag type="warning"
-                  v-else>三级</el-tag>
-        </span>
-        <!-- 操作列列 -->
-        <span slot="operation"
-              slot-scope="operation">
-          <el-button type="primary"
-                     icon="el-icon-edit"
-                     size="mini"
-                     @click="showEditDialog(operation)">编辑</el-button>
-          <el-button type="danger"
-                     icon="el-icon-delete"
-                     size="mini"
-                     @click="deleteCate(operation)">删除</el-button>
+      <el-table :data="cateList"
+                row-key="cat_id"
+                :load="load"
+                :tree-props="{children: 'children'}"
+                border
+                lazy>
+        <el-table-column label="分类名称"
+                         prop="cat_name"
+                         align="left">
+        </el-table-column>
+        <el-table-column label="是否有效"
+                         prop="cat_deleted"
+                         align="center">
+          <template slot-scope="scope">
+            <!-- 是否有效列 -->
+            <i class="el-icon-success"
+               v-if="scope.row.cat_deleted === false"
+               style="color:lightgreen"></i>
+            <i class="el-icon-error"
+               v-else
+               style="color:red"></i>
+          </template>
+        </el-table-column>
+        <el-table-column label="排序"
+                         prop="cat_level"
+                         align="center">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.cat_level === 0">一级</el-tag>
+            <el-tag type="success"
+                    v-else-if="scope.row.cat_level === 1 ">二级</el-tag>
+            <el-tag type="warning"
+                    v-else>三级</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作"
+                         align="center">
+          <template slot-scope="scope">
+            <el-button type="primary"
+                       icon="el-icon-edit"
+                       size="mini"
+                       @click="showEditDialog(scope.row.cat_id)">编辑</el-button>
+            <el-button type="danger"
+                       icon="el-icon-delete"
+                       size="mini"
+                       @click="deleteCate(scope.row.cat_id)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
 
-        </span>
-      </a-table>
       <!-- 分页区域 -->
       <el-pagination @size-change="handleSizeChange"
                      @current-change="handleCurrentChange"
@@ -130,39 +137,7 @@
 </template>
 
 <script>
-// 表格列定义
-const columns = [
-  {
-    title: '分类名称',
-    dataIndex: 'cat_name',
-    width: '25%'
-  },
-  {
-    title: '是否有效',
-    dataIndex: 'cat_deleted',
-    align: 'center',
-    width: '25%',
-    scopedSlots: { customRender: 'isDeleted' }
 
-  },
-  {
-    title: '排序',
-    dataIndex: 'cat_level',
-    align: 'center',
-    width: '25%',
-
-    scopedSlots: { customRender: 'cat_level' }
-
-  },
-  {
-    title: '操作',
-    dataIndex: 'cat_id',
-    align: 'center',
-    width: '25%',
-    scopedSlots: { customRender: 'operation' }
-
-  }
-]
 export default {
   data () {
     return {
@@ -178,7 +153,6 @@ export default {
       },
       // 商品分类的数据列表
       cateList: [],
-      columns,
       // 数据总数
       total: 0,
       // 控制添加分类对话框的显示和隐藏
@@ -345,13 +319,16 @@ export default {
       }).catch(() => {
         this.$message.info('已取消删除')
       })
+    },
+    // 树形表数据采用懒加载
+    load (tree, treeNode, resolve) {
+      setTimeout(() => {
+        resolve(this.cateList.children)
+      }, 1000)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.tree-table {
-  margin: 15px 0;
-}
 </style>

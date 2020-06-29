@@ -13,11 +13,6 @@ import './plugins/element.js'
 // 导入字体样式
 import './assets/fonts/iconfont.css'
 
-// 导入 ant-design-vue js
-import './plugins/antDesignVue.js'
-// 导入 ant-design-vue 的table样式
-import 'ant-design-vue/lib/table/style/css'
-
 // 导入自定义的全局样式及封装好的http请求
 import './assets/css/global.css'
 import sevice from './plugins/http.js'
